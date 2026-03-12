@@ -10,7 +10,9 @@ export default function App() {
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [isImageLoading, setIsImageLoading] = useState(true);
   
-  const videoUrl = "https://drive.google.com/file/d/1cSfHsqIIZK-KJ2rmgNmLRHYpC4CqVTiI/preview?autoplay=1";
+  // Direct link for native video tag support
+  const videoDirectUrl = "https://drive.google.com/uc?id=1cSfHsqIIZK-KJ2rmgNmLRHYpC4CqVTiI&export=download";
+  const videoPreviewUrl = "https://drive.google.com/file/d/1cSfHsqIIZK-KJ2rmgNmLRHYpC4CqVTiI/preview";
   const imageUrl = "https://lh3.googleusercontent.com/u/0/d/18nLGL3pZFUFfiJ0HFMyMiE-wlz2mFGnr";
 
   return (
@@ -36,16 +38,16 @@ export default function App() {
                 Video Preview
               </h1>
               <p className="text-xs text-zinc-400 font-sans uppercase tracking-wider font-medium">
-                Google Drive Embed
+                Native Autoplay & Loop
               </p>
             </div>
           </div>
           <a 
-            href={videoUrl} 
+            href={videoPreviewUrl} 
             target="_blank" 
             rel="noopener noreferrer"
             className="p-2 hover:bg-zinc-100 rounded-full transition-colors text-zinc-400 hover:text-zinc-600"
-            title="Open original"
+            title="Open in Drive"
           >
             <ExternalLink size={20} />
           </a>
@@ -58,15 +60,20 @@ export default function App() {
             </div>
           )}
           
-          <iframe 
-            src={videoUrl} 
+          <video 
+            src={videoDirectUrl} 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            onCanPlay={() => setIsVideoLoading(false)}
             className={`
-              w-full h-full border-0 transition-all duration-700
+              w-full h-full object-cover transition-all duration-700
               ${isVideoLoading ? 'opacity-0 blur-lg' : 'opacity-100 blur-0'}
             `}
-            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-            onLoad={() => setIsVideoLoading(false)}
-          ></iframe>
+          >
+            Your browser does not support the video tag.
+          </video>
         </div>
 
         <div className="px-8 py-4 bg-zinc-50/50 border-t border-black/[0.03] flex items-center justify-between">
