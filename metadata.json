@@ -1,5 +1,5 @@
 {
-  "name": "Image Viewer",
-  "description": "A simple application to display a specific image.",
+  "name": "Media Showcase",
+  "description": "A simple application to display a video and an image from Google Drive.",
   "requestFramePermissions": []
 }
