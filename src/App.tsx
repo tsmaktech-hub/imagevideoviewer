@@ -4,7 +4,7 @@
  */
 
 import { useState } from 'react';
-import { ExternalLink, Video, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { ExternalLink, Video, Image as ImageIcon, Loader2, PlayCircle } from 'lucide-react';
 
 export default function App() {
   const [isVideoLoading, setIsVideoLoading] = useState(true);
@@ -98,21 +98,16 @@ export default function App() {
               Embed Mode
             </span>
           </div>
-          <p className="text-[10px] text-zinc-400 italic max-w-[200px] text-right">
-            If video fails to load, try "Open in Drive" above.
-          </p>
-        </div>
-      </div>
-
-        <div className="px-8 py-4 bg-zinc-50/50 border-t border-black/[0.03] flex items-center justify-between">
-          <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest">
-            ID: 1cSfHsqI...
-          </span>
-          <div className="flex gap-2">
-            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-[11px] font-sans font-medium text-zinc-500 uppercase tracking-wider">
-              Video Stream
-            </span>
+          <div className="flex flex-col items-end gap-1">
+            <div className="flex gap-2 items-center">
+              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              <span className="text-[11px] font-sans font-medium text-zinc-500 uppercase tracking-wider">
+                Video Stream
+              </span>
+            </div>
+            <p className="text-[10px] text-zinc-400 italic">
+              If video fails to load, try "Open in Drive" above.
+            </p>
           </div>
         </div>
       </div>
