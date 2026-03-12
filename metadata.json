@@ -1,0 +1,5 @@
+{
+  "name": "Image Viewer",
+  "description": "A simple application to display a specific image.",
+  "requestFramePermissions": []
+}
