@@ -55,8 +55,7 @@ export default function App() {
               w-full h-full border-0 transition-all duration-700
               ${isVideoLoading ? 'opacity-0 blur-lg' : 'opacity-100 blur-0'}
             `}
-            allow="autoplay"
-            referrerPolicy="no-referrer"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
             onLoad={() => setIsVideoLoading(false)}
           ></iframe>
         </div>
