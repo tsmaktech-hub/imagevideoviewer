@@ -10,32 +10,40 @@ export default function App() {
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [isImageLoading, setIsImageLoading] = useState(true);
   
-  const videoUrl = "https://drive.google.com/file/d/1cSfHsqIIZK-KJ2rmgNmLRHYpC4CqVTiI/preview";
+  // Direct link for background video (works better for autoplay/loop)
+  const videoId = "1cSfHsqIIZK-KJ2rmgNmLRHYpC4CqVTiI";
+  const directVideoUrl = `https://drive.google.com/uc?export=download&id=${videoId}`;
+  const videoUrl = `https://drive.google.com/file/d/${videoId}/preview`;
   const imageUrl = "https://lh3.googleusercontent.com/u/0/d/18nLGL3pZFUFfiJ0HFMyMiE-wlz2mFGnr";
 
   return (
     <div className="relative min-h-screen flex flex-col items-center py-12 px-6 sm:px-12 gap-12 overflow-x-hidden">
-      {/* Background Video Layer */}
-      <div className="fixed inset-0 -z-10 bg-zinc-900 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-black/40 z-10" /> {/* Overlay to ensure readability */}
-        <iframe 
-          src={`${videoUrl}${videoUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&controls=0&loop=1`}
-          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 aspect-video scale-[1.5] opacity-50 grayscale-[0.5] blur-[2px]"
-          allow="autoplay; encrypted-media"
-        ></iframe>
+      {/* Background Video Layer - Using <video> for reliable background behavior */}
+      <div className="fixed inset-0 -z-10 bg-zinc-950 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-black/50 z-10" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover opacity-40 grayscale-[0.3]"
+        >
+          <source src={directVideoUrl} type="video/mp4" />
+          <div className="w-full h-full bg-zinc-900" />
+        </video>
       </div>
 
       <header className="text-center space-y-2 relative z-20">
-        <h1 className="text-4xl font-sans font-bold tracking-tight text-white drop-shadow-md">
+        <h1 className="text-4xl font-sans font-bold tracking-tight text-white drop-shadow-lg">
           image & video test
         </h1>
-        <p className="text-zinc-300 font-sans drop-shadow-sm">
+        <p className="text-zinc-300 font-sans drop-shadow-md">
           Testing media assets from Google Drive
         </p>
       </header>
 
       {/* Video Section */}
-      <div className="max-w-4xl w-full bg-white rounded-[24px] shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden border border-black/5">
+      <div className="max-w-4xl w-full bg-white rounded-[24px] shadow-2xl overflow-hidden border border-black/5 relative z-20">
         <div className="px-8 py-6 border-b border-black/[0.03] flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-500">
@@ -46,38 +54,55 @@ export default function App() {
                 Video Preview
               </h1>
               <p className="text-xs text-zinc-400 font-sans uppercase tracking-wider font-medium">
-                Google Drive Embed
+                Google Drive Player
               </p>
             </div>
           </div>
-          <a 
-            href={videoUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="p-2 hover:bg-zinc-100 rounded-full transition-colors text-zinc-400 hover:text-zinc-600"
-            title="Open original"
-          >
-            <ExternalLink size={20} />
-          </a>
+          <div className="flex items-center gap-2">
+            <a 
+              href={videoUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-full transition-colors text-zinc-600 text-xs font-medium"
+            >
+              <ExternalLink size={14} />
+              Open in Drive
+            </a>
+          </div>
         </div>
 
-        <div className="relative aspect-video flex items-center justify-center bg-[#fafafa]">
+        <div className="relative aspect-video flex items-center justify-center bg-black">
           {isVideoLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-10">
-              <Loader2 className="animate-spin text-zinc-300" size={32} />
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-zinc-900 z-10 gap-4">
+              <Loader2 className="animate-spin text-zinc-500" size={32} />
+              <p className="text-zinc-500 text-xs font-mono uppercase tracking-widest">Initialising Stream...</p>
             </div>
           )}
           
           <iframe 
             src={videoUrl} 
             className={`
-              w-full h-full border-0 transition-all duration-700
-              ${isVideoLoading ? 'opacity-0 blur-lg' : 'opacity-100 blur-0'}
+              w-full h-full border-0 transition-all duration-1000
+              ${isVideoLoading ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}
             `}
             allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
             onLoad={() => setIsVideoLoading(false)}
+            title="Google Drive Video Player"
           ></iframe>
         </div>
+
+        <div className="px-8 py-4 bg-zinc-50/80 border-t border-black/[0.03] flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <PlayCircle size={14} className="text-zinc-400" />
+            <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest">
+              Embed Mode
+            </span>
+          </div>
+          <p className="text-[10px] text-zinc-400 italic max-w-[200px] text-right">
+            If video fails to load, try "Open in Drive" above.
+          </p>
+        </div>
+      </div>
 
         <div className="px-8 py-4 bg-zinc-50/50 border-t border-black/[0.03] flex items-center justify-between">
           <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest">
