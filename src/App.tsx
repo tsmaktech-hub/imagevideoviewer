@@ -58,17 +58,6 @@ export default function App() {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <a 
-              href={videoUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-full transition-colors text-zinc-600 text-xs font-medium"
-            >
-              <ExternalLink size={14} />
-              Open in Drive
-            </a>
-          </div>
         </div>
 
         <div className="relative aspect-video flex items-center justify-center bg-black">
@@ -105,9 +94,6 @@ export default function App() {
                 Video Stream
               </span>
             </div>
-            <p className="text-[10px] text-zinc-400 italic">
-              If video fails to load, try "Open in Drive" above.
-            </p>
           </div>
         </div>
       </div>
