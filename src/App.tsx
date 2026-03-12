@@ -18,21 +18,20 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center py-12 px-6 sm:px-12 gap-12 overflow-x-hidden">
-      {/* Background Video Layer - Oversized iframe to hide Drive UI */}
-      <div className="fixed inset-0 -z-10 bg-zinc-950 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-black/60 z-10" />
+      {/* Background Video Layer - Full coverage, no dark filters */}
+      <div className="fixed inset-0 -z-10 bg-white overflow-hidden pointer-events-none">
         <iframe 
-          src={`${videoUrl}?autoplay=1&mute=1&controls=0`}
-          className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 border-0 opacity-40 grayscale-[0.5] pointer-events-none"
+          src={`${videoUrl}?autoplay=1&mute=1&controls=0&loop=1`}
+          className="absolute top-1/2 left-1/2 w-[350%] h-[350%] -translate-x-1/2 -translate-y-1/2 border-0 opacity-100 pointer-events-none"
           allow="autoplay"
         ></iframe>
       </div>
 
       <header className="text-center space-y-2 relative z-20">
-        <h1 className="text-4xl font-sans font-bold tracking-tight text-white drop-shadow-lg">
+        <h1 className="text-4xl font-sans font-bold tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
           image & video test
         </h1>
-        <p className="text-zinc-300 font-sans drop-shadow-md">
+        <p className="text-white font-sans drop-shadow-[0_1px_5px_rgba(0,0,0,0.8)] font-medium">
           Testing media assets from Google Drive
         </p>
       </header>
