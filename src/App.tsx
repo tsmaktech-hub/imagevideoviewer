@@ -10,11 +10,20 @@ export default function App() {
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [isImageLoading, setIsImageLoading] = useState(true);
   
-  const videoUrl = "https://drive.google.com/file/d/1cSfHsqIIZK-KJ2rmgNmLRHYpC4CqVTiI/preview";
+  const videoUrl = "https://drive.google.com/file/d/1cSfHsqIIZK-KJ2rmgNmLRHYpC4CqVTiI/preview?autoplay=1";
   const imageUrl = "https://lh3.googleusercontent.com/u/0/d/18nLGL3pZFUFfiJ0HFMyMiE-wlz2mFGnr";
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] flex flex-col items-center py-12 px-6 sm:px-12 gap-12">
+      <header className="text-center space-y-2">
+        <h1 className="text-4xl font-sans font-bold tracking-tight text-zinc-900">
+          image & video test
+        </h1>
+        <p className="text-zinc-500 font-sans">
+          Testing media assets from Google Drive
+        </p>
+      </header>
+
       {/* Video Section */}
       <div className="max-w-4xl w-full bg-white rounded-[24px] shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden border border-black/5">
         <div className="px-8 py-6 border-b border-black/[0.03] flex items-center justify-between">
