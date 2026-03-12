@@ -18,17 +18,22 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center py-12 px-6 sm:px-12 gap-12 overflow-x-hidden">
-      {/* Background Video Layer - Using <video> for better background performance */}
+      {/* Background Media Layer */}
       <div className="fixed inset-0 -z-10 bg-zinc-900 overflow-hidden pointer-events-none">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover opacity-100"
-        >
-          <source src={directVideoUrl} type="video/mp4" />
-        </video>
+        {/* Fallback Image - Shown while video loads */}
+        <img 
+          src={imageUrl} 
+          alt="" 
+          className="absolute inset-0 w-full h-full object-cover opacity-50 blur-sm"
+          referrerPolicy="no-referrer"
+        />
+        
+        {/* Background Video Iframe - Oversized to hide Drive UI */}
+        <iframe 
+          src={`${videoUrl}?autoplay=1&mute=1&controls=0&loop=1&rel=0&showinfo=0`}
+          className="absolute top-1/2 left-1/2 w-[400%] h-[400%] -translate-x-1/2 -translate-y-1/2 border-0 opacity-100 pointer-events-none"
+          allow="autoplay; encrypted-media"
+        ></iframe>
       </div>
 
       <header className="text-center space-y-2 relative z-20">
