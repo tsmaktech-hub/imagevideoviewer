@@ -14,12 +14,22 @@ export default function App() {
   const imageUrl = "https://lh3.googleusercontent.com/u/0/d/18nLGL3pZFUFfiJ0HFMyMiE-wlz2mFGnr";
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] flex flex-col items-center py-12 px-6 sm:px-12 gap-12">
-      <header className="text-center space-y-2">
-        <h1 className="text-4xl font-sans font-bold tracking-tight text-zinc-900">
+    <div className="relative min-h-screen flex flex-col items-center py-12 px-6 sm:px-12 gap-12 overflow-x-hidden">
+      {/* Background Video Layer */}
+      <div className="fixed inset-0 -z-10 bg-zinc-900 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-black/40 z-10" /> {/* Overlay to ensure readability */}
+        <iframe 
+          src={`${videoUrl}${videoUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&controls=0&loop=1`}
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 aspect-video scale-[1.5] opacity-50 grayscale-[0.5] blur-[2px]"
+          allow="autoplay; encrypted-media"
+        ></iframe>
+      </div>
+
+      <header className="text-center space-y-2 relative z-20">
+        <h1 className="text-4xl font-sans font-bold tracking-tight text-white drop-shadow-md">
           image & video test
         </h1>
-        <p className="text-zinc-500 font-sans">
+        <p className="text-zinc-300 font-sans drop-shadow-sm">
           Testing media assets from Google Drive
         </p>
       </header>
